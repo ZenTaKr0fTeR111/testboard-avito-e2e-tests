@@ -1,6 +1,4 @@
-# testboard-e2e-tests
-
-E2E тесты на Playwright для Testboard.
+# E2E тесты на Playwright для Testboard.
 
 ### Требования
 
@@ -14,7 +12,7 @@ E2E тесты на Playwright для Testboard.
 ```bash
 npm install
 ```
-Удостовериться, что устанвоились браузеры
+Удостовериться, что установились браузеры
 ```bash
 npx playwright install
 ```
@@ -26,8 +24,8 @@ npx playwright install
 Для использования СВОЕГО пользователя нужно ввести его данные в файле .env
 
 ```bash
-const USER_EMAIL = "email;
-const USER_PASSWORD = "password";
+E2E_USER_EMAIL="email";
+E2E_USER_PASSWORD="password";
 ```
 
 ### Запуск тестов
@@ -38,15 +36,38 @@ const USER_PASSWORD = "password";
 npx playwright test
 ```
 
-Запустить конкретный тестовый файл reateAccount.test.ts:
+Запустить конкретный тестовый файл loginForm.test.ts:
 ```bash
-npx playwright test tests/accountTests/createAccount.test.ts
+npx playwright test tests/accountTests/loginForm.test.ts
 ```
 
 Запустить конкретный тест по названию:
 ```bash
-npx playwright test -g "Открытие страницы Мои объявления"
+npx playwright test -g "Успешная авторизация"
 ```
+Запустить тесты в UI‑режиме:
+
+```bash
+npx playwright test --ui
+```
+
+## Структура проекта
+#### `tests/` — все тестовые сценарии
+
+- `accountTests/loginForm.test.ts` → Проверки попапа авторизации.
+
+- `itemTests/myItemsList.test.ts` → Проверки страницы «Мои объявления».
+
+- `searchTests/search.test.ts` → Проверки поиска.
+
+#### `fixtures/` — фикстуры для авторизации и окружения
+
+#### `pages/` — реализация Page Object‑паттерна для страниц сайта
+
+#### `helpers/` — вспомогательные функции
+
+#### `.env` — данные пользователя для авторизации
+
 ## Линтер (ESLint)
 
 #### Проверить проект линтером:

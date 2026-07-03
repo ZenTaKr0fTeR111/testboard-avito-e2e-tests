@@ -5,12 +5,15 @@ import {MainPage} from "../../pages/mainPage/mainPage";
 test.describe("Проверки попапа с авторизацией", () => {
     test("Успешная авторизация", async ({ page }) => {
         //arrange
+        const email = process.env.E2E_USER_EMAIL;
+        const password = process.env.E2E_USER_PASSWORD;
+
+        if (!email || !password) {
+            throw new Error("email or password is not defined in .env");
+        }
+        
         const loginPopupPage = new LoginPopupPage(page);
         const mainPage = new MainPage(page);
-
-        const uniq = Date.now();
-        const email = `gedeon.qa+${uniq}@example.ru`;
-        const password = "Password123";
 
         //act
         await mainPage.openMainPage();
@@ -23,7 +26,7 @@ test.describe("Проверки попапа с авторизацией", () =>
         await mainPage.assertUserIsLoggedIn();
     });
 
-    test("переход на регистрацию по кнопке", async ({ page }) => {
+    test("Переход на регистрацию по кнопке", async ({ page }) => {
         //arrange
         const loginPopup = new LoginPopupPage(page);
         const mainPage = new MainPage(page);
@@ -34,10 +37,10 @@ test.describe("Проверки попапа с авторизацией", () =>
         await loginPopup.clickRegisterBtn();
 
         //assert
-        await expect(page).toHaveURL("/authRegistration");
+        await expect(page).toHaveURL("/auth/register");
     });
 
-    test("логин с пустыми полями не должен увести на главную", async ({ page }) => {
+    test("Логин с пустыми полями не должен увести на главную", async ({ page }) => {
         //arrange
         const loginPopup = new LoginPopupPage(page);
         const mainPage = new MainPage(page);
